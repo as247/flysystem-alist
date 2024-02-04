@@ -12,9 +12,11 @@ class AListAdapter implements FilesystemAdapter, TemporaryUrlGenerator
     protected $prefixer;
     public function __construct($url, $options = [])
     {
+        if(!isset($options['root']) && isset($options['prefix'])){
+            $options['root']=$options['prefix'];
+        }
         $this->storage = new AList($url, $options);
         $this->prefixer = new PathPrefixer($options['root']??'', DIRECTORY_SEPARATOR);
-        $this->throwException = $options['debug'] ?? '';
     }
 
 }
