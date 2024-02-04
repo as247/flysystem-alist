@@ -1,26 +1,22 @@
 <?php
 namespace As247\Flysystem\AList;
 use As247\CloudStorages\Storage\AList;
-use As247\Flysystem\DriveSupport\StorageToAdapter;
-use League\Flysystem\Adapter\AbstractAdapter;
-use League\Flysystem\Config;
+use As247\CloudStorages\Support\StorageToAdapter;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\PathPrefixer;
+use League\Flysystem\UrlGeneration\TemporaryUrlGenerator;
 
-class AListAdapter extends AbstractAdapter
+class AListAdapter implements FilesystemAdapter, TemporaryUrlGenerator
 {
     use StorageToAdapter;
+    protected $prefixer;
     public function __construct($url, $options = [])
     {
+        if(!isset($options['root']) && isset($options['prefix'])){
+            $options['root']=$options['prefix'];
+        }
         $this->storage = new AList($url, $options);
-        $this->setPathPrefix($options['root'] ?? '');
-        $this->throwException = $options['debug'] ?? '';
+        $this->prefixer = new PathPrefixer($options['root']??'', DIRECTORY_SEPARATOR);
     }
-    public function getTemporaryUrl($path, $expiration=null, Config $config = null){
-        if($expiration===null){
-            $expiration=time()+3600;
-        }
-        if(is_int($expiration)){
-            $expiration=(new \DateTime())->setTimestamp($expiration);
-        }
-        return $this->storage->temporaryUrl($this->applyPathPrefix($path),$expiration,$this->convertConfig($config));
-    }
+
 }

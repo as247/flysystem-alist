@@ -6,7 +6,7 @@
 ## Installation
 
 ```bash
-composer require as247/flysystem-alist:^1.0
+composer require as247/flysystem-alist
 ```
 
 ## Usage
