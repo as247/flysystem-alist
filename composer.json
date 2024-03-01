@@ -14,7 +14,7 @@
   "require": {
     "php": ">=7.1",
     "ext-json": "*",
-    "as247/cloud-storages": "^1.2.6",
+    "as247/cloud-storages": "^1.2.8",
     "league/flysystem": "^3.23",
     "as247/alist-client": "^1.0.2"
   },
