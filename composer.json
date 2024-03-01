@@ -16,7 +16,7 @@
     "ext-json": "*",
     "as247/alist-client": "^1.0.2",
     "league/flysystem": "^1.1",
-    "as247/cloud-storages": "^1.2.7"
+    "as247/cloud-storages": "^1.2.8"
   },
   "autoload": {
     "psr-4": {
